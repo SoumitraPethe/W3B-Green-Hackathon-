@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Leaf Node</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        .login-container h2 {
+            margin-bottom: 20px;
+        }
+        .login-container input[type="text"], 
+        .login-container input[type="password"], 
+        .login-container select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .login-container button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .login-container button:hover {
+            background-color: #45a049;
+        }
+        .login-container a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        .login-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <select id="country" required>
+            <option value="" disabled selected>Select your country</option>
+            <option value="us">United States</option>
+            <option value="ca">Canada</option>
+            <option value="gb">United Kingdom</option>
+            <option value="au">Australia</option>
+            <option value="in">India</option>
+           
+        </select>
+        <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a href="register.html">Register here</a></p>
+    <p><a href="index.html">Back to Home</a></p>
+</div>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        var country = document.getElementById('country').value;
+
+     
+        if (username && password && country) {
+           
+            localStorage.setItem('username', username);
+            alert('Login successful! Redirecting to the main page...');
+           
+            window.location.href = 'index.html'; 
+        } else {
+            alert('Please fill out all fields.');
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identify Plant</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+       
+        .container {
+            padding: 20px;
+        }
+        #capturedImage {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Identify a Plant</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="virtual-planting.html">Virtual Planting</a></li>
+            <li><a href="buy-redeem.html">Buy and Redeem</a></li>
+            <li><a href="donate.html">Donate</a></li>
+            <li><a href="support.html">Support</a></li>
+            <li><a href="about.html">About Us</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Identify a Plant</h2>
+    <button id="captureButton">Take Photo</button>
+    <video id="video" width="320" height="240" autoplay></video>
+    <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
+    <img id="capturedImage" src="" alt="Captured Photo" style="display:none;">
+    <p id="plantName">Plant Name: </p>
+    <p id="errorMessage" style="color: red;"></p>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        setupCamera();
+    });
+
+    function setupCamera() {
+        var video = document.getElementById('video');
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        var captureButton = document.getElementById('captureButton');
+        var capturedImage = document.getElementById('capturedImage');
+        var plantName = document.getElementById('plantName');
+        var errorMessage = document.getElementById('errorMessage');
+
+        // Access the camera
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch(function(err) {
+                console.error("Error accessing the camera: ", err);
+                errorMessage.textContent = "Error accessing the camera: " + err.message;
+            });
+
+        captureButton.addEventListener('click', function() {
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            capturedImage.src = canvas.toDataURL('image/png');
+            capturedImage.style.display = 'block';
+
+          
+            recognizePlant(canvas.toDataURL('image/png')); 
+        });
+    }
+
+    function recognizePlant(imageData) {
+        var plantName = document.getElementById('plantName');
+        var errorMessage = document.getElementById('errorMessage');
+        var apiKey = 'Kmtwmmz4oWdRcyz1m2HQ15sAprkFw8wWwYYfmqcrbToXq3fO5l';
+
+        // Convert image data URL to Blob
+        function dataURLToBlob(dataURL) {
+            var byteString = atob(dataURL.split(',')[1]);
+            var mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+            var ab = new ArrayBuffer(byteString.length);
+            var ia = new Uint8Array(ab);
+            for (var i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            return new Blob([ab], { type: mimeString });
+        }
+
+        var blob = dataURLToBlob(imageData);
+        var formData = new FormData();
+        formData.append('images', blob, 'plant.jpg');
+
+        fetch('https://api.plant.id/v2/identify/plant?api_key=' + apiKey, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                console.error('Network response was not ok:', response);
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('API Response:', data);
+            if (data && data.suggestions && data.suggestions.length > 0) {
+                var commonName = data.suggestions[0].plant_name || 'Not identified';
+                plantName.textContent = 'Plant Name: ' + commonName;
+            } else {
+                plantName.textContent = 'Plant Name: Not identified';
+            }
+        })
+        .catch(err => {
+            console.error('Error identifying the plant:', err);
+            plantName.textContent = 'Plant Name: Error';
+            errorMessage.textContent = 'Error identifying the plant: ' + err.message;
+        });
+    }
+</script>
+
+</body>
+</html>

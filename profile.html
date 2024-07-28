@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Tree Planting Social Media</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .profile-container {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .profile-container img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+        }
+        .profile-container h2 {
+            margin: 10px 0;
+        }
+        .profile-container p {
+            margin: 5px 0;
+        }
+        .profile-container .edit-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .profile-container .edit-button:hover {
+            background-color: #45a049;
+        }
+        .profile-container .back-link {
+            display: block;
+            margin-top: 20px;
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        .profile-container .back-link:hover {
+            text-decoration: underline;
+        }
+        .profile-stats, .profile-activity {
+            margin-top: 20px;
+        }
+        .profile-stats h3, .profile-activity h3 {
+            margin-bottom: 10px;
+        }
+        .stats-item, .activity-item {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .stats-item p, .activity-item p {
+            margin: 0;
+        }
+        .user-posts {
+            margin-top: 20px;
+        }
+        .post {
+            background: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+        .post img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        .post .photos {
+            display: flex;
+            justify-content: space-between;
+        }
+        .post .photos div {
+            flex: 1;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-container">
+    <img id="profilePhoto" src="path/to/default_profile_photo.jpg" alt="Profile Photo">
+    <h2 id="profileName">User Name</h2>
+    <p id="profilePoints">Points: 0</p>
+    <button class="edit-button" onclick="editProfile()">Edit Profile</button>
+    <a href="index.html" class="back-link">Back to Home</a>
+
+    <div class="profile-stats">
+        <h3>Profile Stats</h3>
+        <div class="stats-item">
+            <p><strong>Total Posts:</strong> <span id="totalPosts">0</span></p>
+        </div>
+        <div class="stats-item">
+            <p><strong>Total Points Earned:</strong> <span id="totalPoints">0</span></p>
+        </div>
+    </div>
+
+
+    <div class="profile-activity">
+        <h3>Recent Activity</h3>
+        <div id="activityContainer">
+          
+        </div>
+    </div>
+
+    <div class="user-posts">
+        <h3>My Posts</h3>
+        <div id="postsContainer">
+           
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var username = localStorage.getItem('username');
+        var profilePhoto = localStorage.getItem('profilePhoto') || 'profile.jpg';
+        var points = localStorage.getItem('points') || 0;
+        var posts = JSON.parse(localStorage.getItem('posts')) || [];
+        var activity = JSON.parse(localStorage.getItem('activity')) || [];
+
+        if (username) {
+            document.getElementById('profileName').textContent = username;
+            document.getElementById('profilePhoto').src = profilePhoto;
+            document.getElementById('profilePoints').textContent = 'Points: ' + points;
+        }
+
+        document.getElementById('totalPosts').textContent = posts.length;
+        document.getElementById('totalPoints').textContent = points;
+
+        posts.forEach(function(post) {
+            addPost(post);
+        });
+
+    
+        activity.forEach(function(act) {
+            addActivity(act);
+        });
+    });
+
+    function addPost(postData) {
+        var postsContainer = document.getElementById('postsContainer');
+        var postDiv = document.createElement('div');
+        postDiv.className = 'post';
+
+        postDiv.innerHTML = `
+            <p><strong>${postData.userName}</strong> has planted a tree!</p>
+            <p>${postData.postComments}</p>
+            <div class="photos">
+                <div class="before-photo">
+                    <p>Before:</p>
+                    <img src="${postData.beforePhotoURL}" alt="Before Photo">
+                </div>
+                <div class="after-photo">
+                    <p>After:</p>
+                    <img src="${postData.afterPhotoURL}" alt="After Photo">
+                </div>
+            </div>
+            <p class="points">+10 Points</p>
+        `;
+
+        postsContainer.appendChild(postDiv);
+    }
+
+    function addActivity(activityData) {
+        var activityContainer = document.getElementById('activityContainer');
+        var activityDiv = document.createElement('div');
+        activityDiv.className = 'activity-item';
+
+        activityDiv.innerHTML = `
+            <p>${activityData.date}: ${activityData.description}</p>
+        `;
+
+        activityContainer.appendChild(activityDiv);
+    }
+
+    function editProfile() {
+       
+        window.location.href = 'edit-profile.html'; 
+    }
+</script>
+
+</body>
+</html>

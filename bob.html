@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bob's Profile - GREEN DROP</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Bob's Profile</h1>
+    </header>
+    <div class="profile-container">
+        <img src="bob.jpeg" alt="Bob's Profile Photo">
+        <h2>Bob</h2>
+        <p>Bob is passionate about contributing to environmental sustainability. He has been involved in multiple tree planting campaigns and aims to inspire others to join the cause.</p>
+        <p><strong>Country:</strong> UK</p>
+        <p><strong>Gender:</strong> Male</p>
+        <p><strong>Points Earned:</strong> 850</p>
+        
+        <h3>Activity Stats</h3>
+        <ul>
+            <li>Trees Planted: 20</li>
+            <li>Comments Made: 35</li>
+            <li>Posts Liked: 50</li>
+        </ul>
+        
+        <h3>Recent Posts</h3>
+        <div id="postsContainer">
+           
+        </div>
+    </div>
+    <a href="index.html">Back to Home</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          
+            var examplePosts = [
+                {
+                    photoURL: "bob.jpeg",
+                    beforePhotoURL: "bob_before1.jpg",
+                    afterPhotoURL: "bob_after1.jpg",
+                    postComments: "Just planted this sapling!",
+                    comments: [
+                        { user: 'Alice', text: 'Well done!' },
+                        { user: 'David', text: 'Looking great!' }
+                    ]
+                },
+                {
+                    photoURL: "path/to/bob.jpg",
+                    beforePhotoURL: "path/to/bob_before2.jpg",
+                    afterPhotoURL: "path/to/bob_after2.jpg",
+                    postComments: "Another successful planting!",
+                    comments: [
+                        { user: 'Charlie', text: 'Incredible effort!' },
+                        { user: 'Eva', text: 'You’re making a difference!' }
+                    ]
+                }
+            ];
+
+            var postsContainer = document.getElementById('postsContainer');
+            
+            examplePosts.forEach(function(post) {
+                var postDiv = document.createElement('div');
+                postDiv.className = 'post';
+
+                var commentsHTML = post.comments.map(function(comment) {
+                    return `<p><strong>${comment.user}</strong>: ${comment.text}</p>`;
+                }).join('');
+
+                postDiv.innerHTML = `
+                    <div class="post-photo">
+                        <img src="${post.photoURL}" alt="Post Photo">
+                    </div>
+                    <div class="photos">
+                        <div class="before-photo">
+                            <p>Before:</p>
+                            <img src="${post.beforePhotoURL}" alt="Before Photo">
+                        </div>
+                        <div class="after-photo">
+                            <p>After:</p>
+                            <img src="${post.afterPhotoURL}" alt="After Photo">
+                        </div>
+                    </div>
+                    <p>${post.postComments}</p>
+                    <div class="comments">${commentsHTML}</div>
+                `;
+
+                postsContainer.appendChild(postDiv);
+            });
+        });
+    </script>
+</body>
+</html>

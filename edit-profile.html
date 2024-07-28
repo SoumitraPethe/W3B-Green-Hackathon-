@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - Tree Planting Social Media</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .edit-profile-container {
+            width: 80%;
+            max-width: 600px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .edit-profile-container h2 {
+            margin-bottom: 20px;
+        }
+        .edit-profile-container input[type="text"], 
+        .edit-profile-container input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .edit-profile-container button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .edit-profile-container button:hover {
+            background-color: #45a049;
+        }
+        .edit-profile-container .back-link {
+            display: block;
+            margin-top: 20px;
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        .edit-profile-container .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="edit-profile-container">
+    <h2>Edit Profile</h2>
+    <form id="editProfileForm">
+        <input type="text" id="newUsername" placeholder="New Username" required>
+        <input type="file" id="newProfilePhoto" accept="image/*">
+        <button type="submit">Save Changes</button>
+    </form>
+    <a href="profile.html" class="back-link">Back to Profile</a>
+</div>
+
+<script>
+    document.getElementById('editProfileForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var newUsername = document.getElementById('newUsername').value;
+        var newProfilePhoto = document.getElementById('newProfilePhoto').files[0];
+
+        if (newUsername) {
+            localStorage.setItem('username', newUsername);
+        }
+
+        if (newProfilePhoto) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                localStorage.setItem('profilePhoto', e.target.result);
+                alert('Profile updated successfully!');
+            };
+            reader.readAsDataURL(newProfilePhoto);
+        } else {
+            alert('Profile updated successfully!');
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaf Node</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <div class="title-logo">
+        <img src="logo.jpg" alt="Leaf Logo" class="logo">
+        <h1>Leaf Node</h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="virtual-planting.html">Virtual Planting</a></li>
+            <li><a href="buy-redeem.html">Buy and Redeem</a></li>
+            <li><a href="donate.html">Donate</a></li>
+            <li><a href="support.html">Support</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="carbon-footprint.html" class="important-link">Carbon Footprint Calculator</a></li>
+        </ul>
+    </nav>
+    <div class="links">
+        <a href="identify-plant.html" class="identify-link important-link">Identify a Plant</a>
+        <a href="ai-suggestions.html" class="ai-suggestions important-link">AI Suggestions</a>
+    </div>
+</header>
+
+<div class="top-container">
+    <div class="profile-container">
+        <div class="profile-info">
+            <img id="profilePhoto" src="profile.jpg" alt="Profile Photo">
+            <div id="profileDetails">
+                <p id="profileName">Soumitra</p>
+                <p id="points">Points: 1000</p>
+            </div>
+        </div>
+        <div class="carbon-footprint">
+            <h2>Footprint Data</h2>
+            <p id="countryCarbonFootprint">Country Carbon Footprint: 2.8 GT</p>
+            <p id="cityCarbonFootprint">City (Mumbai) Carbon Footprint: 102 tons per person</p>
+        </div>
+    </div>
+    <div class="center-content">
+        <div class="social-icons">
+            <a href="https://www.youtube.com" target="_blank"><img src="youtube-icon.jpeg" alt="YouTube"></a>
+            <a href="https://www.linkedin.com" target="_blank"><img src="linkedin-icon.png" alt="LinkedIn"></a>
+            <a href="https://www.pinterest.com" target="_blank"><img src="pinterest-icon.png" alt="Pinterest"></a>
+            <a href="https://www.instagram.com" target="_blank"><img src="instagram-icon.png" alt="Instagram"></a>
+            <a href="https://www.facebook.com" target="_blank"><img src="facebook-icon.png" alt="Facebook"></a>
+        </div>
+        <div class="contact-info">
+            <p>1-800-XXX-XXX</p>
+            <p><a href="contact.html">Contact Us</a></p>
+        </div>
+        <div class="newsletter">
+            <p>Subscribe to our Newsletter</p>
+            <input type="email" placeholder="Enter your email" required>
+            <button>Subscribe</button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="user-posts">
+        <h2>Recent Posts</h2>
+        <div id="postsContainer"></div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var username = localStorage.getItem('username');
+        var profilePhoto = localStorage.getItem('profilePhoto') || 'profile.jpg';
+        var points = localStorage.getItem('points') || 1000;
+
+        if (username) {
+            document.getElementById('profileName').textContent = username;
+            document.getElementById('profilePhoto').src = profilePhoto;
+            document.getElementById('points').textContent = 'Points: ' + points;
+        }
+
+        var examplePosts = [
+            {
+                userName: "Alice",
+                beforePhotoURL: "alice_before.jpg",
+                afterPhotoURL: "alice_after.jpeg",
+                postComments: "Planting my first tree!",
+                profileURL: "alice.html",
+                comments: [],
+                location: "New York, USA"
+            },
+            {
+                userName: "Bob",
+                beforePhotoURL: "bob_before1.jpg",
+                afterPhotoURL: "bob_after1.jpg",
+                postComments: "Excited to contribute to a greener earth!",
+                profileURL: "bob.html",
+                comments: [],
+                location: "London, UK"
+            }
+        ];
+
+        examplePosts.forEach(function(post) {
+            addPost(post);
+        });
+
+       
+        function provideAISuggestions() {
+            var suggestions = [
+                {
+                    season: "Spring",
+                    plants: ["Tomatoes", "Lettuce", "Peas"],
+                    easyToGrow: ["Radishes", "Spinach"],
+                    forFarmers: ["Corn", "Soybeans"]
+                },
+                {
+                    season: "Summer",
+                    plants: ["Cucumbers", "Squash", "Beans"],
+                    easyToGrow: ["Basil", "Zucchini"],
+                    forFarmers: ["Wheat", "Rice"]
+                },
+                {
+                    season: "Fall",
+                    plants: ["Broccoli", "Carrots", "Brussels Sprouts"],
+                    easyToGrow: ["Garlic", "Kale"],
+                    forFarmers: ["Barley", "Oats"]
+                },
+                {
+                    season: "Winter",
+                    plants: ["Kale", "Leeks", "Spinach"],
+                    easyToGrow: ["Lettuce", "Swiss Chard"],
+                    forFarmers: ["Winter Wheat", "Rye"]
+                }
+            ];
+
+            suggestions.forEach(function(suggestion) {
+                console.log(`Season: ${suggestion.season}`);
+                console.log(`Plants to Grow: ${suggestion.plants.join(', ')}`);
+                console.log(`Easy to Grow: ${suggestion.easyToGrow.join(', ')}`);
+                console.log(`Suggestions for Farmers: ${suggestion.forFarmers.join(', ')}`);
+                console.log('--------------------------------');
+            });
+        }
+
+        provideAISuggestions();
+    });
+
+    function addPost(postData) {
+        var postsContainer = document.getElementById('postsContainer');
+        if (!postsContainer) {
+            console.error('Posts container not found');
+            return;
+        }
+        var postDiv = document.createElement('div');
+        postDiv.className = 'post';
+
+        var commentsHTML = postData.comments.map(function(comment) {
+            return `<p><strong>${comment.user}</strong>: ${comment.text}</p>`;
+        }).join('');
+
+        var afterPhotoClass = postData.userName === 'Alice' ? 'after-photo-big' : 'after-photo';
+
+        postDiv.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <p><strong><a href="${postData.profileURL}" target="_blank">${postData.userName}</a></strong></p>
+                <p>+10 Points</p>
+            </div>
+            <p>${postData.postComments}</p>
+            <div class="photos">
+                <div class="before-photo">
+                    <p>Before:</p>
+                    <img src="${postData.beforePhotoURL}" alt="Before Photo">
+                </div>
+                <div class="${afterPhotoClass}">
+                    <p>After:</p>
+                    <img src="${postData.afterPhotoURL}" alt="After Photo">
+                </div>
+                <p class="location">Location: ${postData.location}</p>
+            </div>
+            <div class="comments">${commentsHTML}</div>
+            <input type="text" placeholder="Write a comment..." class="comment-input">
+            <button class="comment-button">Post Comment</button>
+        `;
+
+        postsContainer.appendChild(postDiv);
+
+        var commentButton = postDiv.querySelector('.comment-button');
+        commentButton.addEventListener('click', function() {
+            var commentInput = postDiv.querySelector('.comment-input');
+            var commentText = commentInput.value.trim();
+            if (commentText) {
+                postData.comments.push({ user: 'Current User', text: commentText });
+                var commentDiv = document.createElement('p');
+                commentDiv.innerHTML = `<strong>Current User</strong>: ${commentText}`;
+                postDiv.querySelector('.comments').appendChild(commentDiv);
+                commentInput.value = '';
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

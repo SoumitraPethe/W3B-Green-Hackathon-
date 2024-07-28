@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate - Leaf Node</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Leaf Node</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="virtual-planting.html">Virtual Planting</a></li>
+                <li><a href="buy-redeem.html">Buy and Redeem</a></li>
+                <li><a href="donate.html">Donate</a></li>
+                <li><a href="support.html">Support</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Donate</h2>
+        <p>Support our mission to combat deforestation and promote sustainable practices. Your donations help fund tree planting initiatives and environmental conservation efforts.</p>
+        
+        <div class="payment-options">
+            <h3>Donate Using Various Payment Methods</h3>
+            <p>Select a payment method and contribute to our cause. Every donation makes a difference!</p>
+            
+            <div class="payment-method">
+                <h4>PayPal</h4>
+                <p>Donate securely using PayPal. Click the button below to proceed.</p>
+                <form action="https://www.paypal.com/donate" method="post" target="_blank">
+                    <input type="hidden" name="business" value="your-paypal-email@example.com">
+                    <input type="hidden" name="cmd" value="_donations">
+                    <input type="hidden" name="item_name" value="Donation to Leaf Node">
+                    <input type="submit" value="Donate with PayPal">
+                </form>
+            </div>
+            
+            <div class="payment-method">
+                <h4>Stripe</h4>
+                <p>Use your credit or debit card through Stripe for a secure donation.</p>
+             
+                <form action="https://your-stripe-payment-page-url" method="post" target="_blank">
+                    <input type="submit" value="Donate with Stripe">
+                </form>
+            </div>
+
+            <div class="payment-method">
+                <h4>Bank Transfer</h4>
+                <p>Make a donation directly to our bank account. Use the details below:</p>
+                <p><strong>Account Name:</strong> Leaf Node</p>
+                <p><strong>Account Number:</strong> 123456789</p>
+                <p><strong>Sort Code:</strong> 12-34-56</p>
+                <p><strong>Bank Name:</strong> Your Bank</p>
+            </div>
+            
+            
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Leaf Node. All rights reserved.</p>
+    </footer>
+</body>
+</html>

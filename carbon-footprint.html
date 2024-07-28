@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Footprint Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+       
+        .container {
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        input, button {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Carbon Footprint Calculator</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="virtual-planting.html">Virtual Planting</a></li>
+            <li><a href="buy-redeem.html">Buy and Redeem</a></li>
+            <li><a href="donate.html">Donate</a></li>
+            <li><a href="support.html">Support</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="identify-plant.html">Identify a Plant</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Calculate Your Carbon Footprint</h2>
+    <label for="distance">Distance traveled (in kilometers):</label>
+    <input type="number" id="distance" placeholder="Enter distance traveled" required>
+    <label for="fuel">Fuel consumption (in liters):</label>
+    <input type="number" id="fuel" placeholder="Enter fuel consumption" required>
+    <label for="weight">Weight of items transported (in kilograms):</label>
+    <input type="number" id="weight" placeholder="Enter weight of items" required>
+    <button id="calculateButton">Calculate Carbon Footprint</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    document.getElementById('calculateButton').addEventListener('click', function() {
+        var distance = parseFloat(document.getElementById('distance').value);
+        var fuel = parseFloat(document.getElementById('fuel').value);
+        var weight = parseFloat(document.getElementById('weight').value);
+
+        if (isNaN(distance) || isNaN(fuel) || isNaN(weight) || distance <= 0 || fuel <= 0 || weight <= 0) {
+            document.getElementById('result').textContent = 'Please enter valid numbers greater than zero for all fields.';
+            return;
+        }
+
+
+        var carbonFootprint = (distance * 0.233) + (fuel * 2.31) + (weight * 0.12);
+
+        
+        var averageCarbonFootprint = 5000; 
+
+        
+        var message;
+        if (carbonFootprint > averageCarbonFootprint) {
+            message = 'Your carbon footprint is above average.';
+        } else if (carbonFootprint < averageCarbonFootprint) {
+            message = 'Your carbon footprint is below average.';
+        } else {
+            message = 'Your carbon footprint is average.';
+        }
+
+       
+        document.getElementById('result').innerHTML = `
+            <p>Your carbon footprint is ${carbonFootprint.toFixed(2)} kg CO2.</p>
+            <p>${message}</p>
+        `;
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <h1>User Activities</h1>
+</header>
+
+<div class="container">
+    <div class="activity-list">
+        <h2>Recent Activities</h2>
+        <ul id="activityContainer">
+           
+        </ul>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var activities = [
+            { user: 'Alice', action: 'uploaded a photo of her tree planting.' },
+            { user: 'Bob', action: 'commented on Alice\'s post.' },
+          
+        ];
+
+        var activityContainer = document.getElementById('activityContainer');
+        activities.forEach(function(activity) {
+            var li = document.createElement('li');
+            li.textContent = `${activity.user} ${activity.action}`;
+            activityContainer.appendChild(li);
+        });
+    });
+</script>
+
+</body>
+</html>

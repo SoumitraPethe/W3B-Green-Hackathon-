@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Suggestions</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <div class="title-logo">
+        <img src="logo.jpg" alt="Leaf Logo" class="logo">
+        <h1>Leaf Node</h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="virtual-planting.html">Virtual Planting</a></li>
+            <li><a href="buy-redeem.html">Buy and Redeem</a></li>
+            <li><a href="donate.html">Donate</a></li>
+            <li><a href="support.html">Support</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="carbon-footprint.html" class="important-link">Carbon Footprint Calculator</a></li>
+        </ul>
+    </nav>
+    <div class="links">
+        <a href="identify-plant.html" class="identify-link important-link">Identify a Plant</a>
+        <a href="ai-suggestions.html" class="ai-suggestions important-link">AI Suggestions</a>
+    </div>
+</header>
+
+<div class="container">
+    <h2>AI Suggestions</h2>
+    <div id="suggestionsContainer"></div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var suggestions = [
+            {
+                season: "Spring",
+                plants: ["Tomatoes", "Lettuce", "Peas"],
+                easyToGrow: ["Radishes", "Spinach"],
+                forFarmers: ["Corn", "Soybeans"]
+            },
+            {
+                season: "Summer",
+                plants: ["Cucumbers", "Squash", "Beans"],
+                easyToGrow: ["Basil", "Zucchini"],
+                forFarmers: ["Wheat", "Rice"]
+            },
+            {
+                season: "Fall",
+                plants: ["Broccoli", "Carrots", "Brussels Sprouts"],
+                easyToGrow: ["Garlic", "Kale"],
+                forFarmers: ["Barley", "Oats"]
+            },
+            {
+                season: "Winter",
+                plants: ["Kale", "Leeks", "Spinach"],
+                easyToGrow: ["Lettuce", "Swiss Chard"],
+                forFarmers: ["Winter Wheat", "Rye"]
+            }
+        ];
+
+        var suggestionsContainer = document.getElementById('suggestionsContainer');
+        suggestions.forEach(function(suggestion) {
+            var suggestionDiv = document.createElement('div');
+            suggestionDiv.className = 'suggestion';
+
+            suggestionDiv.innerHTML = `
+                <h3>${suggestion.season}</h3>
+                <p><strong>Plants to Grow:</strong> ${suggestion.plants.join(', ')}</p>
+                <p><strong>Easy to Grow:</strong> ${suggestion.easyToGrow.join(', ')}</p>
+                <p><strong>For Farmers:</strong> ${suggestion.forFarmers.join(', ')}</p>
+            `;
+
+            suggestionsContainer.appendChild(suggestionDiv);
+        });
+    });
+</script>
+
+</body>
+</html>

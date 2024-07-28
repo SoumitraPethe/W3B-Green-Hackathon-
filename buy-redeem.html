@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy and Redeem - Leaf Node</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+     
+        .reward-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px;
+        }
+        .reward {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 15px;
+            width: 300px;
+            text-align: center;
+        }
+        .reward img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+        .reward h3 {
+            margin: 10px 0;
+        }
+        .reward p {
+            font-size: 16px;
+            color: #333;
+        }
+        .reward button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .reward button:hover {
+            background-color: #45a049;
+        }
+        .profile-info {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-align: right;
+        }
+        .profile-info p {
+            margin: 0;
+            color: #333;
+        }
+        .profile-info img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+        .redeem-form {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .redeem-form h3 {
+            margin-top: 0;
+        }
+        .redeem-form label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        .redeem-form input, .redeem-form button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+        }
+        .redeem-form button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .redeem-form button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Leaf Node</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="virtual-planting.html">Virtual Planting</a></li>
+                <li><a href="buy-redeem.html">Buy and Redeem</a></li>
+                <li><a href="donate.html">Donate</a></li>
+                <li><a href="support.html">Support</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="profile-info">
+        <img src="profile.jpg" alt="Profile Photo">
+        <p id="profileName">User Name</p>
+        <p id="points">Points: 0</p>
+    </div>
+
+    <main>
+        <h2>Buy and Redeem</h2>
+        <p>Learn about how you can purchase eco-friendly products and redeem rewards.</p>
+
+        <div class="reward-container">
+            <div class="reward">
+                <img src="reward1.jpg" alt="Eco-Friendly Water Bottle">
+                <h3>Eco-Friendly Water Bottle</h3>
+                <p>This water bottle is made from recycled materials and helps reduce plastic waste. Redeem it with your points!</p>
+                <button onclick="showRedeemForm('Eco-Friendly Water Bottle')">Redeem Now</button>
+            </div>
+
+            <div class="reward">
+                <img src="reward2.jpg" alt="Reusable Shopping Bag">
+                <h3>Reusable Shopping Bag</h3>
+                <p>Reduce single-use plastic by using this durable and stylish reusable shopping bag. Available for redemption with points.</p>
+                <button onclick="showRedeemForm('Reusable Shopping Bag')">Redeem Now</button>
+            </div>
+
+            <div class="reward">
+                <img src="reward3.jpg" alt="Plant a Tree Kit">
+                <h3>Plant a Tree Kit</h3>
+                <p>Everything you need to plant a tree and contribute to reforestation efforts. Redeemable with points earned from green activities.</p>
+                <button onclick="showRedeemForm('Plant a Tree Kit')">Redeem Now</button>
+            </div>
+
+            <div class="reward">
+                <img src="reward4.jpeg" alt="Eco-Friendly T-Shirt">
+                <h3>Eco-Friendly T-Shirt</h3>
+                <p>Made from organic cotton, this t-shirt is a great way to show your commitment to sustainability. Redeem it with your points!</p>
+                <button onclick="showRedeemForm('Eco-Friendly T-Shirt')">Redeem Now</button>
+            </div>
+        </div>
+    </main>
+
+    <div id="redeemForm" class="redeem-form">
+        <h3>Redeem Reward</h3>
+        <form id="redeemFormDetails">
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" required>
+
+            <label for="reward">Reward:</label>
+            <input type="text" id="reward" readonly>
+
+            <button type="submit">Submit</button>
+            <button type="button" onclick="closeRedeemForm()">Cancel</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Leaf Node. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var profileName = localStorage.getItem('username') || 'User Name';
+            var profilePhoto = localStorage.getItem('profilePhoto') || 'profile.jpg';
+            var points = localStorage.getItem('points') || 0;
+
+            document.getElementById('profileName').textContent = profileName;
+            document.getElementById('profilePhoto').src = profilePhoto;
+            document.getElementById('points').textContent = 'Points: ' + points;
+        });
+
+        function showRedeemForm(rewardName) {
+            document.getElementById('reward').value = rewardName;
+            document.getElementById('redeemForm').style.display = 'block';
+        }
+
+        function closeRedeemForm() {
+            document.getElementById('redeemForm').style.display = 'none';
+        }
+
+        document.getElementById('redeemFormDetails').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Reward redeemed successfully!');
+            closeRedeemForm();
+            
+        });
+    </script>
+</body>
+</html>
